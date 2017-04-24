@@ -1,0 +1,135 @@
+<div class="container">
+	<div class="row">
+		<h4>Payslip of month <strong><span class ="monthName"><%= ALL_MONTHS[@first_month_report.month] %></span></strong></h4>
+
+		<table class="table table-bordered">
+			<tr>
+				<td class="info"></td>
+				<td class="info">
+					<%= select("get", "month", @months.collect {|p| [ALL_MONTHS[p], p]}, { :include_blank => true }, {class: "form-control montsDropDown"})	%>
+<p>
+					<%=link_to "Download Pdf",  monthlypayslip_path(format: :pdf),:id=>"download_pdf" %>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td>Employee no  <span class="namespace empId"><%= @employee.empId %></span></td>
+					<td>Employee name <span class="namespace firstName"><%= @employee.firstName.capitalize %></span></td>
+				</tr>
+				<tr class="">
+					<td>Bank  <span class="namespace bankName"><%= @employee.bankName.capitalize %></span></td>
+					<td>Bank Account number <span class="namespace accountNumber"><%= @employee.accountNumber %></span></td>
+				</tr>
+				<tr>
+					<td>joining date <span class="namespace doj"><%= @employee.doj %></span></td>
+					<td>pf number <span class="namespace pfNumber"><%= @employee.pfNumber %></span></td>
+				</tr>
+			</table>
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr class="info">
+						<th>Earnings</th>
+						<th>Rs.</th>
+						<th>Deductions </th>
+						<th>Rs.</th>
+					</tr>
+				</thead>
+				<tr>
+					<td>Basic </td>
+					<td class="basic_sal"><%= @first_month_report.basic %></td>
+					<td>PF</td>
+					<td class="empPf"><%= @first_month_report.pf %></td>
+				</tr>
+				<tr class="info">
+					<td>Hra</td>
+					<td class="empHra"><%= @first_month_report.hra %></td>
+					<td>Prof tax</td>
+					<td class="empProfTax"><%= @first_month_report.profTax %></td>
+				</tr>
+				<tr>
+					<td>Transport Allowances</td>
+					<td class ="empTa"><%= @first_month_report.ta %></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr class="info">
+					<td>Medical Allowances</td>
+					<td class="empMa"><%= @first_month_report.ma %></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Residual pay </td>
+					<td class="empResidualpay"><%= @first_month_report.residuapay %></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr class="info">
+					<td>Total Earnings</td>
+					<td class="totEarnings"><%= @first_month_report.totEarnings %></td>
+					<td>Total deductions</td>
+					<td class="totDeductions"><%=@first_month_report.totDeductions %></td>
+				</tr>
+			</tr>
+		</table>
+		 <strong>Net pay</strong> <span class="netpay"><%= @first_month_report.netPay %></h3></span>
+		
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var empId  = <%= @employee.id %>
+		$('.montsDropDown').val($(".montsDropDown option:nth-child(2)").val())
+		$('.montsDropDown').change(function(e){
+			$('.monthName').html($('.montsDropDown option:selected').html())
+			$.ajax({
+				url:'/employee/'+empId+'/payslip.json',
+				method:'get',
+				data:{month:$(this).val()},
+				success:function(res){
+					if(res){
+						$('.basic_sal').html(res.basic)
+						$('.empPf').html(res.pf)
+						$('.empHra').html(res.hra)
+						$('.empProfTax').html(res.profTax)
+						$('.empTa').html(res.ta)
+						$('.empMa').html(res.ma)
+						$('.empMa').html(res.ma)
+						$('.empResidualpay').html(res.residuapay)
+						$('.totEarnings').html(res.totEarnings)
+						$('.totDeductions').html(res.totDeductions)
+						$('span.netpay').html(res.netPay)
+					}
+				}
+			})
+			
+		})
+		$('#download_pdf').on('click',function(){
+				month=$(".montsDropDown").val()
+				location.href = $(this).attr("href")+"?month="+month
+				return false;		
+			})
+	})
+</script>
+<style type="text/css">
+	.montsDropDown
+	{width: 32%;
+		float: left;}
+	.namespace{
+		padding-left: 15px;
+	}
+#download_pdf{
+	display: block;
+    height: 33px;
+    margin-left: 34%;
+    width: 156px;
+    padding-left: 1%;
+    padding-top: 1%;
+    background: #31708f;
+    border: 2px solid rgba(33, 68, 72, 0.59);
+    text-align: center;
+    color: white;
+    display: block;
+    text-decoration: none;
+}
+</style>

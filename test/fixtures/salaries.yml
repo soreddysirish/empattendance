@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  empName: MyString
+  empId: MyString
+  basicSal: 1
+  hra: 1
+  da: 1
+  ta: 1
+  medicalAllowances: 1
+  residualPay: 1
+  pf: 1
+  ProfTax: 1
+  employee: one
+
+two:
+  empName: MyString
+  empId: MyString
+  basicSal: 1
+  hra: 1
+  da: 1
+  ta: 1
+  medicalAllowances: 1
+  residualPay: 1
+  pf: 1
+  ProfTax: 1
+  employee: two

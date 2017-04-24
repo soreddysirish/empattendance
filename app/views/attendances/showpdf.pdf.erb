@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="bower_components/jspdf/dist/jspdf.min.js"></script>
+<script src="bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
+<style>
+     .equalDivide tr td { width:25%; }
+     .fontweight {font-weight: bold;}
+</style>
+</head>
+<body style ="margin-left:4%">
+	<div class="continer">
+	<div class="row">
+	  <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+	  <div class="">
+	  	<p> <h4 style="text-align:center">CODINGMART TECHNOLOGIES PRIVATE LIMITED</h4>
+	  	<small style="margin-left:15%">No2. Datri nivas,second floor,opposite to manyatha tech park,nagavara Bangalore</small>
+	  	<br/>
+	  	<p style="text-align:center"> Payslip of the month <%= ALL_MONTHS[@first_month_report.month] %></p>
+	  </div>
+		<table class="table table-bordered table-hover"  cellpadding="0" cellspacing="0" width="100%" border="0">
+				<tr class="info">
+					<td><span class="fontweight">Employee no</span>  <span class="namespace empId"><%= employee.empId %></span></td>
+					<td><span class="fontweight">Employee name &nbsp&nbsp&nbsp</span> <span class="namespace firstName"><%= employee.firstName.capitalize %></span></td>
+				</tr>
+				<tr class="">
+					<td><span class="fontweight">Bank  &nbsp&nbsp&nbsp&nbsp</span><span class="namespace bankName"><%= employee.bankName.capitalize %></span></td>
+					<td><span class="fontweight">Bank Account number</span> <span class="namespace accountNumber"><%= employee.accountNumber %></span></td>
+				</tr>
+				<tr>
+					<td><span class="fontweight">Joining date </span><span class="namespace doj"><%= employee.doj %></span></td>
+					<td><span class="fontweight">pf number </span><span class="namespace pfNumber"><%= employee.pfNumber %></span></td>
+				</tr>
+				<tr>
+					<td><span class="fontweight">Effective working days</span><span class="namespace doj">&nbsp&nbsp&nbsp<%= reports.effectiveWorkDays %></span></td>
+					<td><span class="fontweight">Pan number </span><span class="namespace pfNumber"><%= employee.panNumber %></span></td>
+				</tr>
+				<tr>
+					<td><span class="fontweight">Days in month</span><span class="namespace doj">&nbsp&nbsp&nbsp<%= reports.daysInMonth %></span></td>
+					<td><span class="fontweight">Loss of pay</span><span class="namespace pfNumber">&nbsp&nbsp&nbsp<%= reports.lop %></span></td>
+				</tr>
+			</table>
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr class="info">
+						<th>Earnings</th>
+						<th>Rs.</th>
+						<th>Deductions </th>
+						<th>Rs.</th>
+					</tr>
+				</thead>
+				<tr>
+					<td>Basic </td>
+					<td class="basic_sal"><%= reports.basic %></td>
+					<td>PF</td>
+					<td class="empPf"><%= reports.pf %></td>
+				</tr>
+				<tr class="info">
+					<td>Hra</td>
+					<td class="empHra"><%= reports.hra %></td>
+					<td>Prof tax</td>
+					<td class="empProfTax"><%= reports.profTax %></td>
+				</tr>
+				<tr>
+					<td>Transport Allowances</td>
+					<td class ="empTa"><%= reports.ta %></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr class="info">
+					<td>Medical Allowances</td>
+					<td class="empMa"><%= reports.ma %></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Residual pay </td>
+					<td class="empResidualpay"><%= reports.residuapay %></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr class="info">
+					<td>Total Earnings</td>
+					<td class="totEarnings"><%= reports.totEarnings %></td>
+					<td>Total deductions</td>
+					<td class="totDeductions"><%=reports.totDeductions %></td>
+				</tr>
+			</tr>
+		</table>
+		 <strong>Net pay</strong> <span class="netpay"><%= reports.netPay %></h3></span>
+	</div>
+</div>
+</body>
+</html>

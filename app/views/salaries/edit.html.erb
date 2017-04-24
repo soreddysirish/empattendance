@@ -1,0 +1,73 @@
+<div class="container">
+	<div class="row">
+	<%  binding.pry %>
+		<%= form_for @salary , url: {action: "create"} do |f| %>
+		<div class="col-md-12 col-sm-12">
+
+			<div class="form-group col-md-6 col-sm-6">
+				<%= f.label :basicSal %>
+				<%= f.text_field :basicSal ,autofocus: true,class:'form-control input-sm',placeholder: "Enter basic sal" %>
+			</div>
+
+			<div class="form-group col-md-6 col-sm-6">
+				<%= f.label :hra %>
+				<%= f.text_field :hra ,autofocus: true,class:'form-control input-sm',placeholder: "Enter HRA" %>
+			</div>
+
+			<div class="form-group col-md-6 col-sm-6">
+				<%= f.label :ta %>
+				<%= f.text_field :ta ,autofocus: true,class:'form-control input-sm',placeholder: "Enter HRA" %>
+			</div>
+
+			<div class="form-group col-md-6 col-sm-6">
+				<%= f.label :medicalAllowances %>
+				<%= f.text_field :medicalAllowances ,autofocus: true,class:'form-control input-sm',placeholder: "Enter Medical allowances" %>
+			</div>
+
+			<div class="form-group col-md-6 col-sm-6">
+				<%= f.label :residualPay %>
+				<%= f.text_field :residualPay ,autofocus: true,class:'form-control input-sm',placeholder: "Enter residualPay" %>
+			</div>
+
+			<div class="form-group col-md-6 col-sm-6">
+				<%= f.label :pf %>
+				<%= f.text_field :pf ,autofocus: true,class:'form-control input-sm',placeholder: "Enter PF" %>
+			</div>
+
+			<div class="form-group col-md-6 col-sm-6">
+				<%= f.label :ProfTax %>
+				<%= f.text_field :ProfTax ,autofocus: true,class:'form-control input-sm',placeholder: "Enter PF" %>
+			</div>
+			
+		</div>
+		<div class="form-group col-md-6 col-sm-6">
+		<%= f.submit "Add salary" ,class:'btn btn-primary ' %>
+		</div>
+			<% end %>
+	</div>
+</div>
+<script>
+// $(document).ready(function(){
+// 	$('#salary_empName').keypress(function(e){
+// if(event.which != 8 && (/^[a-zA-Z() ]+$/).test(String.fromCharCode(event.which))){
+
+//            return true;//stop character from entering input
+//  $.ajax({
+// 				url:'/salaries/search',
+// 				method:'post',
+// 				success:function(res){
+					
+// 				}
+// 				})
+//        }else{
+//        	event.preventDefault()
+//        }
+// })
+// })
+</script>
+
+
+
+	
+	
+	

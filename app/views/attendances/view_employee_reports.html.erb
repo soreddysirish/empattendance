@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Employee id</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th></th>
+			</tr>
+		</thead>
+		<% @employees.each do |emp|%>
+	<tbody>
+		<tr>
+			<td><%= emp.empId %></td>
+			<td><%= emp.firstName %></td>
+			<td><%= emp.email %></td>
+		<td><%= link_to "view report", monthlypayslip_path(emp.id) %> </td>
+		</tr>
+	</tbody>
+	<% end %>
+		</table>
+	</div>
+</div>

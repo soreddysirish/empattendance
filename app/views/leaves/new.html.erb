@@ -1,0 +1,146 @@
+ <div class="container">
+ 	<div class="row">
+			<span class="errorMsg" style ="display:none;color:red"> Don't select weekends </span>
+			<span class="errorMsgLeave" style ="display:none;color:red"> you dont have available leaves change leave type </span>
+			<span class="errorMsgLeaveSelect" style ="display:none;color:red">Please select leaveType </span>
+			
+ </div>
+ </div>
+<div class="container">
+	<div class="row">
+	<div class="col-md-6 col-md-push-4">
+		<%= form_for :leave , url: {action: "create"},role: 'form', data: {toggle:"validator"} do |f| %>
+		
+			<%= f.label :leave_type , "Leave type"%>
+			
+			<%= f.select :leave_type, options_for_select([["--select leave type--",""],"Casual leave", "Official out", "sick leave","Loss of pay"]),{},{class:'form-control input-sm leave_type', data: {:validation => "required", "validation-error-msg" => "Please select leave type" }}%>
+
+			<%= f.label :start , "From date"%>
+			<%= f.text_field :start, "data-provide" => 'datepicker',class: 'datepicker form-control input-sm DtChkIn',required:true %>
+
+			<%= f.label :end , "To date"%>
+			<%= f.text_field :end, "data-provide" => 'datepicker',class: 'datepicker form-control input-sm DtChkOut',required:true%>
+		
+			<%= f.label :num_of_days, "Number of days" %>
+			<%= f.text_field :num_of_days ,autofocus: true,class:'form-control input-sm',id:"numDays" %>
+			<div class="availableLeavesSlideUP">
+			<label class="col-md-4 control-label" for="fn">Available Leaves</label>  
+			<input id="" type="text"  name ="leave[leaveBalance]" placeholder="Your don't have leaves" class="form-control input-md availableLeaves" readonly="readonly" value ="<%=current_employee.available_leaves %>">
+		</div>
+			<%= f.label :reason %>
+			<%= f.text_area :reason ,autofocus: true,class:'form-control input-sm',placeholder: "Reason for leave", data:{:validation =>"required","validation-error-msg" => "Enter reason for leave"} %>
+		<br>
+		<div class="form-group">
+			<label class="col-md-4 control-label" for="submit"></label>
+				<%= f.submit "Apply for leave", class:"btn btn-primary  applyBtn" %>
+				<button id="claar data" name="clear" class="btn btn-default btnClr">clear</button>
+			</div>
+		<% end %>
+		</div>
+
+	</div>
+</div>
+<script>
+$(document).ready(function(){
+	$.validate()
+})
+	$(function() {
+		debugger;
+		$('.DtChkIn').datepicker({
+			format: 'yyyy-mm-dd',
+			changeMonth: true,
+			changeYear: true,
+			changeMonth: true,
+			autoclose: true,
+			beforeShowDay:function(){
+				this.daysOfWeekDisabled=[0,6]
+			}
+		}).on('changeDate',function(event){
+			//checkIn =$('.DtChkIn').val()
+			//newDate  =new Date(checkIn)
+			//newDate.setDate(newDate.getDate() + 1);
+			//$('.DtChkOut').datepicker("update",newDate)
+			//$('.DtChkOut').datepicker("options",'defaultDate',new Date(newDate))
+			//$('.DtChkOut')[0].focus()
+			debugger;
+		});
+
+		$('.DtChkOut').datepicker({
+			format: 'yyyy-mm-dd',
+			changeMonth: true,
+			changeYear: true,
+			changeMonth: true,
+			autoclose: true,
+			beforeShowDay:function(){
+				this.daysOfWeekDisabled=[0,6]
+			}
+		}).on('changeDate',function(){
+			var start =$('.DtChkIn').val() ? moment($('.DtChkIn').val(),'YYYY MM DD'):""
+			var end =$('.DtChkOut').val()? moment($('.DtChkOut').val(),'YYYY MM DD') :""
+
+			if(start && end){
+				var numDays =end.diff(start, 'days') 
+				$('#numDays').val(numDays)
+				if($('#leave_leave_type').val()!=""){
+					test(numDays)
+				}else{
+					$('.errorMsgLeaveSelect').show()
+				}
+			}
+			setTimeout(function(){
+				window.showMsg =false
+				var date1 =new Date($('.DtChkIn').val())
+				var date2 =new Date($('.DtChkOut').val())	
+	    while(date1 < date2){
+
+	        var dayNo = date1.getDay();
+	        date1.setDate(date1.getDate()+1)
+	        if(dayNo ==0 || dayNo == 6){
+	        	window.shoMsg =true
+	           $('.errorMsg').show() 
+	           $('#numDays').val('')
+	        }
+	    }
+				},10)
+			if(window.shoMsg){
+				$('.errorMsg').hide()
+				$('#numDays').attr('readonly','true')
+				window.shoMsg =false
+				// $('.applyBtn')
+			}
+		})
+	})
+
+	
+	var available_leaves = <%= current_employee.available_leaves %>
+	function test(numDays){
+	var leaveTypeselected =$('.leave_type').val()
+		if((leaveTypeselected =="Casual leave" || leaveTypeselected =="sick leave") && available_leaves >0 && numDays <=available_leaves){
+			$('.errorMsgLeave').hide()
+			return true
+		}else{
+			$('.errorMsgLeave').show()
+			$('.leave_type').val('')
+		}
+	}
+	$('.leave_type').on('change',function(){
+		var leaveType = $('.leave_type').val()
+		$('.errorMsgLeaveSelect').hide()
+		if(leaveType == "Official out" || leaveType =="Loss of pay"){
+			$('.availableLeavesSlideUP').slideUp(1000)
+		}else if((leaveType == "Casual leave" || leaveType =="sick leave")){
+			$('.availableLeaves').val(available_leaves)
+			$('.availableLeavesSlideUP').slideDown(1000)
+		}
+		if($('.availableLeaves').val()<0 && $('.leave_type').val()){
+		$('.availableLeaves').val("No leaves for you pls change leave type")	
+		//$('.availableLeavesSlideUP').slideUp(1000)
+	}
+	$('.btnClr').on('click',function(){
+     $('select').val('')
+     $('input[type="text"]').val('');
+   });
+	})
+</script>
+
+

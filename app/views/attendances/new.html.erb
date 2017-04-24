@@ -1,0 +1,77 @@
+<form class="form-horizontal" action="/attendances/create" method ="post">
+<%= hidden_field_tag 'authenticity_token', form_authenticity_token %>
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="leave_type">Leave Type</label>
+		<div class="col-md-6">
+			<select id="a" name="leave_type" class="form-control input-md">
+				<option name ="attendance[leaveType]">casual leave</option>
+				<option name ="attendance[leaveType]">afficial out</option>
+				<option name ="attendance[leaveType]">sick leave</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-4 control-label">From date</label>
+		<div class="col-xs-6">
+			<input id="datepicker" type="text" class="form-control input-sm datepicker DtChkIn" name ="attendance[fromDate]" id="" placeholder=" From">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-xs-4 control-label">To date</label>
+		<div class="col-xs-6">
+			<input id="datepicker" type="text" class="form-control input-sm datepicker DtChkOut" name ="attendance[toDate]" id="" placeholder=" To">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="fn">Number of days</label>  
+		<div class="col-md-6">
+			<input id="numDays" type="text" placeholder="Number of days"  name ="attendance[numOfDays]" class="form-control input-md"  readonly="readonly">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="fn">Available Leaves</label>  
+		<div class="col-md-6">
+			<input id="" type="text"  name ="attendance[leaveBalance]" placeholder="Your leaves" class="form-control input-md" readonly="readonly" value ="<%=@attendance.leaveBalance %>">
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="add1">Reason</label>  
+		<div class="col-md-6 input-group">
+			<textarea class="form-control custom-control" rows="3"  name ="attendance[reason]"></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="submit"></label>
+		<div class="col-md-6">
+			<button id="submit" name="submit" class="btn btn-primary">Apply</button>
+			<button id="submit" name="submit" class="btn btn-default">clear</button>
+		</div>
+	</div>
+</form>
+<script>
+  $( function() {
+    $(".datepicker").datepicker({
+		 format: 'yyyy-mm-dd',
+    changeMonth: true,
+    changeYear: true,
+    	autoclose: true
+    });
+    $('.DtChkOut').datepicker({
+    format: 'yyyy-mm-dd',
+    changeMonth: true,
+    changeYear: true
+    }).on('changeDate',function(){
+    	var start =$('.DtChkIn').val() ? moment($('.DtChkIn').val(),'YYYY MM DD'):""
+    	var end =$('.DtChkOut').val()? moment($('.DtChkOut').val(),'YYYY MM DD') :""
+    	if(start && end){
+    		var numDays =end.diff(start, 'days') 
+    		$('#numDays').val(numDays)
+    	}
+    	
+    });
+  });
+  // moment($('.DtChkOut').val(),'MM DD YYYY')
+  // moment($('.DtChkIn').val(),'MM DD YYYY')
+  // b.diff(a, 'days') 
+  </script>

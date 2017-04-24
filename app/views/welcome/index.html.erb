@@ -1,0 +1,49 @@
+<div  class="container">
+	<div class="row">
+		<div class="col-md-12 col-sm-6">
+			<div class="jumbotron">
+        <h1>welcome <% if employee_signed_in? %>
+        <%= current_employee.firstName %>
+        <% end %></h1>
+	    <% if @check_finder.present?%>
+			<%if @check_finder.start.present? && @check_finder.end.present?%>
+				<p> your session is completed for the day </p>
+			<% elsif @check_finder.start.present?%>
+				<button  id ="checkOut" type="button" class="btn btn-danger" data-emid=<%= current_employee.id%>>Check out</button>
+				<p class="load">please click checkout while going to home</p>
+			<%else%>
+				<p class="load">Please click checkIntime to continue</p>
+				<button  id ="checkIn" type="button" class="btn btn-success">Check in</button>
+			<% end %>
+		<%else%>
+			<p class="load">Please click checkIntime to continue</p>
+			<button  id ="checkIn" type="button" class="btn btn-success">Check in</button>
+		<%end%>
+		</div>
+	</div>
+</div>
+
+    
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#checkIn').click(function(){
+		
+			$.ajax({
+				url:'/attendances/create',
+				type:'post',
+				success:function(res){
+					
+				}
+			})
+		});
+		$('#checkOut').click(function(){
+			$.ajax({
+				url:'/attendances/update',
+				type:'patch',
+				success:function(res){
+				
+				}
+			})
+		});
+	})
+</script>

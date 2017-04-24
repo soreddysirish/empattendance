@@ -1,0 +1,51 @@
+<div class="container">
+	<div class="row">
+		<table class="table table-responsive">
+			<thead>
+				<th>Employee Name</th>
+				<th>Employee Id</th>
+				<th>Basic sal</th>
+				<th>HRA</th>
+				<th>Travelling allowances</th>
+				<th>Medical allowances</th>
+				<th>Residual Pay</th>
+				<th>Pf</th>
+				<th>Prof Tax</th>
+			</thead>
+			<% @employees.each do |emp| %>
+			<tbody>
+				<tr>
+					<% if emp.salary.present? %>
+					<td><%= emp.firstName %></td>
+					<td><%= emp.empId %></td>
+					<% if emp.salary.basicSal.present? %>
+						<td><%= emp.salary.basicSal %></td>
+					<% end %>
+					<% if emp.salary.hra.present? %>
+						<td><%= emp.salary.hra %></td>
+					<% end %>
+					<% if emp.salary.ta.present? %>
+						<td><%= emp.salary.ta %></td>
+					<% end %>
+					<% if emp.salary.medicalAllowances.present? %>
+						<td><%= emp.salary.medicalAllowances %></td>
+					<% end %>
+					<% if emp.salary.residualPay.present? %>
+						<td><%= emp.salary.residualPay %></td>
+					<% end %>
+					<% if emp.salary.pf.present? %>
+						<td><%= emp.salary.pf %></td>
+					<% end %>
+					<% if emp.salary.ProfTax.present? %>
+						<td><%= emp.salary.ProfTax %></td>
+						<% else %>
+							<td>0</td>
+					<% end %>
+					<td><%= link_to "edit salary",  new_employee_salary_path(emp) %></td>
+					<% end %>
+				</tr>
+			</tbody>
+			<% end %>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,40 @@
+<div class="container">
+	<div class="row">
+		<div class="table-responsive">          
+			<table class="table table-condensed table-hover">
+				<thead>
+				<th class="info">Employee Id</th>
+					<th class="info">Employee Name</th>
+					<th class="info">Designation</th>
+					<th class="info">Role</th>
+					<th class="info">Mobile number</th>
+					<th class="info">Dob</th>
+					<th class="info">Doj</th>
+					<th class="info"></th>
+					<th class="info"></th>
+					<th class="info"></th>
+					<th class="info"></th>
+					<th class="info"></th>
+				</thead>
+				<tbody>
+					<% @employees.each do |emp| %>
+					<tr class="success">
+						<td><%=emp.empId %></td>
+						<td><%=emp.firstName %></td>
+						<td><%=emp.designation %></td>
+						<td><%=emp.role %></td>
+						<td><%=emp.mobileNumber %></td>
+						<td><%= emp.dob %></td>
+						<td><%= emp.doj %></td>
+						<td><%= link_to "Edit",update_employee_path(emp) %></td>
+						<td><%#= link_to 'Delete',registernewemployee_path(emp), method: :delete,data:{confirm: 'r u sure'}%></td>
+						<td><%= link_to "Salary report", monthlypayslip_path(emp) %></td>
+						<td><%= link_to "Add/update salary",  new_employee_salary_path(emp) %></td>
+						<td><%= link_to "Monthly attendance",    employee_attendances_path(emp) %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

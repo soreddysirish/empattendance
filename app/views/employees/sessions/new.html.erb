@@ -1,0 +1,91 @@
+<section id ="login">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="form-wrap">
+         <h1>Login with your details </h1>
+         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+         <div class="form-group">
+           <%= f.label :email , class: "sr-only control-label" %>
+           <%= f.email_field :email, autofocus: true ,class:'form-control',data:{:validation =>"required email","validation-error-msg" => "Please enter your email"}%>
+         </div>
+
+         <div class="form-group">
+           <%= f.label :password , class: "sr-only control-label" %>
+           <%= f.password_field :password, autocomplete: "off" , autofocus: true ,class:'form-control',data:{:validation =>"required","validation-error-msg" => "Please anter your password"}%>
+           <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+           <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+           <% end -%>  
+         </div>
+         <%= f.submit "Log in" ,class: " btn btn-block btn-success"%>
+         <% end %>
+       </div>
+     </div>
+   </div>
+ </div>
+</section>
+<footer id ="loginFooter">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <p>Page &copy; -2017</p>
+        <p>Powered By <strong>codingmart</strong></p>
+      </div>
+    </div>
+  </div>
+</footer>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $.validate()
+  })
+</script>
+
+<style type="text/css">
+  #login {
+    padding-top: 50px
+  }
+  #login .form-wrap {
+    width: 30%;
+    margin: 0 auto;
+  }
+  #login h1 {
+    color: #1fa67b;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 20px;
+  }
+  #login .form-group {
+    margin-bottom: 25px;
+  }
+
+  #login .btn.btn-custom {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    color: #212121;
+  }
+  .btn-custom {
+    color: #fff;
+    background-color: #1fa67b;
+  }
+  .btn-custom:hover,
+  .btn-custom:focus {
+    color: #fff;
+  }
+  #loginFooter {
+    color: #6d6d6d;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 1%;
+  }
+  #loginFooter p {
+    margin-bottom: 0;
+  }
+  #loginFooter a {
+    color: inherit;
+  }
+</style>

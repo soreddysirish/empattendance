@@ -1,0 +1,126 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+		<% if @check_finder.present?%>
+			<%if @check_finder.start.present? && @check_finder.end.present?%>
+				<p> your session is completed for the day </p>
+			<% elsif @check_finder.start.present?%>
+				<button  id ="checkOut" type="button" class="btn btn-danger" data-emid=<%= current_employee.id%>>Check out</button>
+			<%else%>
+				<button  id ="checkIn" type="button" class="btn btn-success">Check in</button>
+			<% end %>
+		<%else%>
+			<button  id ="checkIn" type="button" class="btn btn-success">Check in</button>
+		<%end%>
+		</div>
+	</div>
+<!-- <a href="/employee/<%=@employee_id %>/listview">list view</a> -->
+	<div id="calendar">
+	</div>
+	</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+		$('#checkIn').click(function(){
+			$.ajax({
+				url:'/attendances/create',
+				type:'post',
+        data:{employee_id: window.location.pathname.split('/')[2]},
+				success:function(res){
+				}
+			})
+		});
+		$('#checkOut').click(function(){
+			$.ajax({
+				url:'/attendances/update',
+				type:'patch',
+        data:{employee_id: window.location.pathname.split('/')[2]},
+				success:function(res){
+				}
+			})
+		});
+		$("#calendar").fullCalendar({
+     header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month'
+      },
+      selectable: true,
+     left: "prev,next today",
+     center: "title",
+     right: "month",
+     defaultView: "month",
+     height: 500,
+     //events:'/attendances',
+    // eventSources: [
+    //     '/attendances',
+    //     // '/leaves'
+    // ],
+    events: {
+      url: '/attendances',
+      data: {employee_id:'<%=@employee_id %>'}
+    },
+
+     cache: true,
+     timeFormat: 'H(:mm)',
+     allday:false,
+     dayRender: function (date, cell) {
+       cell[0].bgColor ="#F5F5DC"     
+    },
+    viewRender: function(view, element) {
+$('.fc-center')[0].children[0].innerText = view.title.replace(new RegExp("undefined", 'g'), "");
+},
+    eventRender: function (event, element,view,cell) {
+      var dataToFind = moment(event.start).format('YYYY-MM-DD');
+    element.find(".fc-content").remove();
+    if(!event.end && event.start && !event.leave_type){
+       $("td[data-date='" + dataToFind + "']").addClass('activeDay')
+      var new_description =   
+        "Your check in" +moment(event.start).format("HH:mm") +'<br/>'
+    element.append(new_description);
+   
+    }else if(event.start && event.end && !event.leave_type) {
+       $("td[data-date='" + dataToFind + "']").addClass('activeDay')
+      var new_description =   
+        "<strong>Your check_in: </strong>" +moment(event.start).format("HH:mm")+'<br/>'
+        + '<strong>Your checkOut: </strong>' + moment(event.end).format("HH:mm") + '<br/>'
+    element.append(new_description);
+    }
+    else if(event.start && event.end && event.leave_type){
+    
+       var dataToEnd = moment(event.end).format('YYYY-MM-DD');
+      element.find(".fc-content").remove();
+      var new_description =
+      "<p > Leave Type :"+ event.leave_type +"</p>"
+      + "<p >reason "+event.reason +"</p>"
+      if(event.leave_type && event.leave_type == "Casual leave"){
+  
+        // $("td[data-date='" + dataToFind + "']").addClass('casualLeave')
+        // $("td[data-date='" + dataToEnd + "']").addClass('casualLeave')
+        // $("td .fc-day-top [data-date='"+)
+
+      }
+      else if(event.leave_type && event.leave_type =="afficila out"){
+
+         element.addClass('officialOut')
+      }
+      
+       element.append(new_description);
+    }
+    },
+   dayClick:function(calEvent,date, allDay, jsEvent, view){
+      day_events =$('#calendar').fullCalendar('clientEvents')
+        },
+        select: function(event, ui) {
+
+        // Logic for handing the selected option
+    },
+    eventClick:  function(event, jsEvent, view) {
+      
+    }
+  });
+		
+
+	})
+	
+</script>

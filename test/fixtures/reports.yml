@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  basic: 1.5
+  hra: 1.5
+  ta: 1.5
+  ma: 1.5
+  residuapay: 1.5
+  pf: 1.5
+  profTax: 1.5
+  totEarnings: 1.5
+  totDeductions: 1.5
+  lop: 1
+  daysInMonth: 1
+  effectiveWorkDays: 1
+  netPay: 1.5
+  month: 1
+  employee: one
+
+two:
+  basic: 1.5
+  hra: 1.5
+  ta: 1.5
+  ma: 1.5
+  residuapay: 1.5
+  pf: 1.5
+  profTax: 1.5
+  totEarnings: 1.5
+  totDeductions: 1.5
+  lop: 1
+  daysInMonth: 1
+  effectiveWorkDays: 1
+  netPay: 1.5
+  month: 1
+  employee: two
