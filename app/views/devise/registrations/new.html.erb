@@ -1,15 +1,16 @@
 <div class="container">
   <div class="row">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <div class="col-md-12 col-sm-12">
+   <div class="col-md-12 col-sm-12">
       <div class="form-group col-md-6 col-sm-6">
        <%= f.label :firstName ,"First name"%>
-       <%= f.text_field :firstName, autofocus: true,class:'form-control input-sm',placeholder: "Enter first name"  vaalidate: true%>
+       <%= f.text_field :firstName, autofocus: true,class:'form-control input-sm',placeholder: "Enter first name",
+       data: {:validation => "required","validation-error-msg" => "Please enter first name"}%>
      </div>
 
      <div class="form-group col-md-6 col-sm-6">
        <%= f.label :lastName, "Last name" %>
-       <%= f.text_field :lastName, autofocus: true,class:'form-control input-sm',placeholder: "Enter last name" %>
+       <%= f.text_field :lastName, autofocus: true,class:'form-control input-sm',placeholder: "Enter last name",data: {:validation => "required","validation-error-msg" => "Please enter last name"}%>
      </div>
 
      <div class="form-group col-md-6 col-sm-6">
@@ -22,100 +23,151 @@
 
      <div class="form-group col-md-6 col-sm-6">
       <%= f.label :empId, " Emp id" %>
-      <%= f.text_field :empId, autofocus: true ,class:'form-control input-sm',placeholder: "Enter emp Id"%>
+      <%= f.text_field :empId, autofocus: true ,class:'form-control input-sm',placeholder: "Enter emp Id", data: {:validation => "required alphanumeric", "validation-help" =>"Employee id should be alphanumeric","validation-error-msg" => "Please enter employee id"}%>
     </div> 
 
     <div class="form-group col-md-6 col-sm-6">
-      <%= f.label :address %>
-      <%= f.text_area :address, autofocus: true ,class:'form-control input-sm',placeholder: "Enter address"%>
+      <%= f.label :address %>&nbsp<strong><span id="max-length-element">50</span></strong> chars left
+      <%= f.text_area :address, autofocus: true ,rows:'1',class:'form-control input-sm',placeholder: "Enter address",id:"myaddress",   data:{:validation =>"required length","validation-length" =>"max50" ,"validation-error-msg" => "we allow only 50 characters only"}%>
     </div> 
 
     <div class="form-group col-md-6 col-sm-6">
       <%= f.label :designation %>
-      <%= f.select :designation, options_for_select([["Select One", ""], "sr software engineer", "product engineer", "Office boy", "test engineer" ]),{},{class:'form-control input-sm'} %>
+      <%= f.select :designation, options_for_select([["Select One", ""], "sr software engineer", "product engineer", "Office boy", "test engineer" ]),{},{class:'form-control input-sm', data: {:validation => "required", "validation-error-msg" => "Please select designation"}}%>
     </div> 
 
     <div class="form-group col-md-6 col-sm-6">
       <%= f.label :dob, "Date of birth" %>
-      <%= f.text_field :dob, "data-provide" =>"datepicker",class:'form-control input-sm' %>
+      <%= f.text_field :dob, "data-provide" =>"datepicker",class:'form-control input-sm dateOfBirth', required:true%>
     </div> 
 
     <div class="form-group col-md-6 col-sm-6">
       <%= f.label :doj, "Date of joining" %>
-      <%= f.text_field :doj, "data-provide" =>"datepicker",class:'form-control input-sm' %>
+      <%= f.text_field :doj, "data-provide" =>"datepicker",class:'form-control input-sm dateOfJoining', required:true%>
     </div>
 
     <div class="form-group col-md-6 col-sm-6">
-    <%= f.label :mobileNumber, "Mobile number" %>
-      <%= f.text_field :mobileNumber, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your mobile number' %>
-    </div>
+      <%= f.label :mobileNumber, "Mobile number" %>
+      <%= f.text_field :mobileNumber, autofocus: true, class:'form-control input-sm mobileNumber', placeholder: 'Enter your mobile number',data: {
+        :validation => " required number","validation-error-msg" => "Please enter mobile number"} %>
+        <span class="mobileNumberError" style="display:none;color: #a94442">Enter 10 digit valid phone number</span>
+      </div>
 
-    <div class="form-group col-md-6 col-sm-6">
-      <%= f.label :pfNumber, "Pf number" %>
-      <%= f.text_field :pfNumber, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your Pf number' %>
-    </div>
+      <div class="form-group col-md-6 col-sm-6">
+        <%= f.label :pfNumber, "Pf number" %>
+        <%= f.text_field :pfNumber, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your Pf number',data: {:validation => "required alphanumeric", "validation-help" =>"Pf should be alphanumeric","validation-error-msg" => "Please enter Pf number"} %>
+      </div>
 
-    <div class="form-group col-md-6 col-sm-6">
-      <%= f.label :panNumber, "Pan number" %>
-      <%= f.text_field :panNumber, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your Pan number' %>
-    </div>
+      <div class="form-group col-md-6 col-sm-6">
+        <%= f.label :panNumber, "Pan number" %>
+        <%= f.text_field :panNumber, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your Pan number',data: {:validation => "required alphanumeric", "validation-help" =>"pan number should be alphanumeric","validation-error-msg" => "Please enter pan number"} %>
+      </div>
 
 
-    <div class="form-group col-md-6 col-sm-6">
-      <%= f.label :bankName, "Bank name" %>
-      <%= f.text_field :bankName, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your bank name' %>
-    </div>
+      <div class="form-group col-md-6 col-sm-6">
+        <%= f.label :bankName, "Bank name" %>
+        <%= f.text_field :bankName, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your bank name',data: {:validation => "required","validation-error-msg" => "Please enter bank name"} %>
+      </div>
 
-    <div class="form-group col-md-6 col-sm-6">
-      <%= f.label :accountNumber, "Account number" %>
-      <%= f.text_field :accountNumber, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your account number' %>
-    </div>
+      <div class="form-group col-md-6 col-sm-6">
+        <%= f.label :accountNumber, "Account number" %>
+        <%= f.text_field :accountNumber, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your account number',
+        data: {:validation => "required number","validation-error-msg" => "Please enter account number"} %>
+      </div>
 
-    <div class="form-group col-md-6 col-sm-6">
-      <%= f.label :accountType, "Account type" %>
-      <%= f.text_field :accountType, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your account type' %>
-    </div>
+      <div class="form-group col-md-6 col-sm-6">
+        <%= f.label :accountType, "Account type" %>
+        <%= f.text_field :accountType, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your account type',
+        data:{:validation =>"required" ,"validation-error-msg" => "Please enter account type"} %>
+      </div>
 
-    <div class="form-group col-md-6 col-sm-6">
-      <%= f.label :branch %>
-      <%= f.text_field :branch, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your branch' %>
-    </div>
+      <div class="form-group col-md-6 col-sm-6">
+        <%= f.label :branch %>
+        <%= f.text_field :branch, autofocus: true, class:'form-control input-sm', placeholder: 'Enter your branch', data:{:validation =>"required" ,"validation-error-msg" => "Please enter branch name"}%>
+      </div>
 
-    <div class="form-group col-md-6 col-sm-6">
-      <%= f.label :ifscCode, "Ifsc code"%>
-      <%= f.text_field :ifscCode, autofocus: true, class:'form-control input-sm', placeholder: 'Enter ifsc code' %>
-    </div>
+      <div class="form-group col-md-6 col-sm-6">
+        <%= f.label :ifscCode, "Ifsc code"%>
+        <%= f.text_field :ifscCode, autofocus: true, class:'form-control input-sm', placeholder: 'Enter ifsc code',data: {:validation => "required alphanumeric", "validation-help" =>"ifsc code should be alphanumeric","validation-error-msg" => "Please enter ifscCode"} %>
+      </div>
 
-    <div class="form-group col-md-6 col-sm-6">
-      <%= f.label :email %>
-      <%= f.email_field :email, autofocus: true, class:'form-control input-sm', placeholder: 'Enter email id' %>
-    </div>
+      <div class="form-group col-md-6 col-sm-6">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, class:'form-control input-sm', placeholder: 'Enter email id', data:{:validation =>"required email", "validation-error-msg" => "please enter valid email"} %>
+      </div>
 
-    <div class="form-group col-md-6 col-sm-6">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br /> 
-      <%= f.password_field :password, autocomplete: "off", class:'form-control input-sm', placeholder: 'password' %>
-    </div>
+      <div class="form-group col-md-6 col-sm-6">
+        <%= f.label :password %>
+        <%# if @minimum_password_length %>
+        <!-- <em>(<%#= @minimum_password_length %> characters minimum)</em> -->
+        <%# end %>
+        <%= f.password_field :password, autocomplete: "off", class:'form-control input-sm passwordEntered', placeholder: 'password',id:"emp_password", 
+        data: {:validation => "required length", "validation-length" => "min8","validation-error-msg" => "please atleast 8 characters", "rule-password"=> true}%>
+      </div>
 
-    <div class="form-group col-md-6 col-sm-6">
-      <%= f.label :password_confirmation,"password confirmation" %>
-      <%= f.password_field :password_confirmation, autocomplete: "off", class:'form-control input-sm', placeholder: 'password confirmation' %>
-    </div>
+      <div class="form-group col-md-6 col-sm-6">
+        <%= f.label :password_confirmation,"password confirmation" %>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class:'form-control input-sm passwordConf', placeholder: 'password confirmation',data: {:validation => "required length", "validation-length" => "min8","validation-error-msg" => "please atleast 8 characters"}%>
+        <span class="confirmPswErr" style="display:none;color: #a94442">password doesn't match</span>
+      </div>
 
-    <div class="form-group col-md-6 col-sm-6">
+      <div class="form-group col-md-6 col-sm-6">
        <%= f.label :role,"Role" %>
-     <%= f.collection_select :role, Employee::ROLES, :to_s, :humanize %>
-    </div>
+       <%= f.collection_select :role, Employee::ROLES, :to_s, :humanize,{:include_blank => "----select your role----"},{class:'form-control input-sm'} %>
+     </div>
 
-    <div class="form-group col-md-6 col-sm-6">
+     <div class="form-group col-md-8 col-md-push-5 col-sm-12" style="margin-top:22px; margin-bottom:22px">
       <%= f.submit "Register new employee",class: 'btn btn-primary ' %>&nbsp
-      <button type ="button"  class='btn btn-defalult'> clear </button>
+      <button type ="button"  class='btn btn-defalult btnClr'> clear </button>
     </div>
+    <br/>
+    <br/>
+    <br/>
     <% end %>
   </div>
 </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+   $.validate();
+   $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
+    $(this).datepicker({"format": "yyyy-mm-dd", "autoclose": true});
+    $('#myaddress').restrictLength( $('#max-length-element'));
+  });
+   $('.btnClr').click(function(){
+     $('select').val('')
+     $('input[type="text"]').val('');
+   });
+   $('.dateOfBirth .dateOfJoining')
+   .datepicker({
+    "autoclose": true,
+    format: 'mm/dd/yyyy'
+  })
+   $('.passwordConf').blur(function(){
+    if($('.passwordConf').val()!="" && $('.passwordEntered').val()!=""){
+      if($('.passwordConf').val() == $('.passwordEntered').val())
+      {
+        return true
+      }
+        else{
+         $('.confirmPswErr').show()
+        }
+      }
+    })
+   $('.mobileNumber').blur(function(){
+  
+    if($('.mobileNumber').val()!="" && $('.mobileNumber').val().length ==10){
+     return true
+    }
+    else{
+      $('.mobileNumberError').show()
+      $('.mobileNumber').css("border-color","#a94442");
+    }
+   })
+   
+ });
+</script>
 
 
 
