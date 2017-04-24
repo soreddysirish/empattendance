@@ -19,8 +19,8 @@
           <span class="confirmPswErr" style="display:none;color: #a94442">password doesn't match</span>
         </div>
         <div class="form-group col-md-6 col-md-push-4 col-sm-6">
-          <button class="btn btn-success changpswbtn">confirm</button>
-          <button class="btn btn-default">clear</button>
+          <button type ="submit" class="btn btn-success changpswbtn">confirm</button>
+          <button  type="reset" value="Reset" class="btn btn-default clear_data"/>clear</button>
         </div>
       </form>
     </div>
@@ -29,6 +29,9 @@
 <script type="text/javascript">
 $(document).ready(function () {
     $.validate();
+    $('.clear_data').click(function(){
+     $('input[type="text"]').val('');
+   });
     $('.passwordConf').blur(function(){
     if($('.passwordConf').val()!="" && $('.passwordEntered').val()!=""){
       if($('.passwordConf').val() == $('.passwordEntered').val())
