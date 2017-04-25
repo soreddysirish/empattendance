@@ -27,14 +27,20 @@ gem 'whenever', :require => false
 gem 'underscore-rails'
 gem 'jquery-validation-rails'
 
-
+group :development do
+  gem 'capistrano', '~> 3.6'
+  gem 'capistrano-rails', '~> 1.2'
+  gem 'capistrano-rvm', github: 'capistrano/rvm'
+  gem 'capistrano-bundler', '~> 1.1'
+  gem 'capistrano-passenger'
+end
 
 # gem 'prawn'
 # gem 'prawn-table', '~> 0.1.0'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

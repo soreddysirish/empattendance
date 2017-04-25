@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: empattendance_production
-  username: empattendance
+  username: root #in most cases this will be postgres
+  password: root
   password: <%= ENV['EMPATTENDANCE_DATABASE_PASSWORD'] %>
