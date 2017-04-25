@@ -30,7 +30,7 @@ namespace :deploy do
             within release_path  do
                 execute 'rm -rf tmp'
                 execute 'mkdir tmp'
-                execute 'chmod -R 777 #{current_path}/tmp'
+                #execute 'chmod -R 777 #{current_path}/tmp'
                 execute 'ln -s #{shared_path}/uploads #{release_path}/public/uploads'
                 execute 'sudo service nginx restart'
                 #execute 'whenever --update-crontab'
