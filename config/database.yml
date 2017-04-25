@@ -51,5 +51,4 @@ production:
   <<: *default
   database: empattendance_production
   username: root #in most cases this will be postgres
-  password: root
   password: <%= ENV['EMPATTENDANCE_DATABASE_PASSWORD'] %>
