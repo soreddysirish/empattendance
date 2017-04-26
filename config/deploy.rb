@@ -22,13 +22,14 @@ set :assets_roles, [:app] # Defaults to [:web]
 # Shared directories over different deployments
 set :linked_dirs, %w(pids log)
 set :linked_files, %w(config/database.yml)
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
 namespace :deploy do
 	desc 'Restart application'
 	task :restart do
 		on roles(:app), in: :sequence, wait: 5 do
 			#execute "sudo chmod -R 777 /var/www/cmpayroll/release"
-			execute "whenever --update-crontab"
+
 			execute "sudo service nginx restart"	
 		end
 	end

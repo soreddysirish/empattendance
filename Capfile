@@ -5,7 +5,7 @@ require 'capistrano/rails'
 require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/rails/migrations'
-require 'whenever/capistrano'
+require "whenever/capistrano"
 require 'capistrano/rails/assets'
 
 # Include default deployment tasks
