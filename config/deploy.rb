@@ -8,7 +8,7 @@ set :log_level, :debug
 set :pty, true
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 set :stages, %w(production staging development)
-set :default_stage, 'production'
+set :default_stage, 'development'
 
 # Force rake through bundle exec
 SSHKit.config.command_map[:rake] = 'bundle exec rake'

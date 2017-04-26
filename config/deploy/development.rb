@@ -1,3 +1,18 @@
+
+set :branch, 'master'
+set :stage, :development
+# Setting RAILS_ENV environment variable on server
+set :rails_env, :development
+
+set :normalize_asset_timestamps, %{public/images public/javascripts public/stylesheets}
+
+role :app, %w{root@107.170.30.178}
+
+set :ssh_options, {
+  forward_agent: true,
+  user: "root"
+}
+
 # set :application, "cmpayroll"
 # set :repo_url, "git@github.com:soreddysirish/empattendance.git"
 # set :deploy_to, "/var/www/cmpayroll"
