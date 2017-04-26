@@ -1,4 +1,3 @@
-
 set :branch, 'master'
 set :stage, :development
 # Setting RAILS_ENV environment variable on server
