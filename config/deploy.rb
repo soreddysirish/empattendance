@@ -28,6 +28,7 @@ namespace :deploy do
 	task :restart do
 		on roles(:app), in: :sequence, wait: 5 do
 			#execute "sudo chmod -R 777 /var/www/cmpayroll/release"
+			execute "whenever --update-crontab"
 			execute "sudo service nginx restart"	
 		end
 	end
