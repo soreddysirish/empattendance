@@ -23,6 +23,7 @@ gem 'pry'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'cancancan', '~> 1.10'
+gem 'listen', '~> 3.0.5'
 gem 'whenever', :require => false
 gem 'underscore-rails'
 gem 'jquery-validation-rails'
