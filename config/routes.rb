@@ -23,6 +23,7 @@ devise_for :employees, controllers: {
   
   #get '/leaves' => 'leaves#index', as: "leaves"
   match "/attendances" => "attendances#index", as: :attendances_path, via: [:get]
+  match '/employees/:id/attendances/update' => "attendances#update", as: "updateEmployeeAttendance" ,via: [:patch]
   get 'attendances/empreport' => 'attendances#view_employee_reports', as: "empreport"
   get 'employee/:id/payslip' => 'attendances#view_payslip_report', as: "monthlypayslip"
 
@@ -35,5 +36,6 @@ devise_for :employees, controllers: {
 
 
 root 'welcome#index'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

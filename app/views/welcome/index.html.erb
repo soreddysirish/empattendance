@@ -27,23 +27,27 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#checkIn').click(function(){
-		
+      debugger;
 			$.ajax({
-				url:'/attendances/create',
+				url:'/employees/<%= current_employee.id %>/attendances',
 				type:'post',
+        data:{employee_id: window.location.pathname.split('/')[2]},
 				success:function(res){
-					
+          debugger;
 				}
 			})
 		});
 		$('#checkOut').click(function(){
+      debugger
 			$.ajax({
-				url:'/attendances/update',
+				url:'/employees/<%= current_employee.id %>/attendances/update',
 				type:'patch',
+        data:{employee_id: window.location.pathname.split('/')[2]},
 				success:function(res){
-				
+          debugger;
 				}
 			})
 		});
 	})
 </script>
+	
