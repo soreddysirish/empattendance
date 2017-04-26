@@ -7,7 +7,7 @@ set :format, :pretty
 set :log_level, :debug
 set :pty, true
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-set :stages, %w(production staging development)
+set :stages, %w(development production staging)
 set :default_stage, 'development'
 
 # Force rake through bundle exec
