@@ -27,7 +27,7 @@ namespace :deploy do
 	desc 'Restart application'
 	task :restart do
 		on roles(:app), in: :sequence, wait: 5 do
-			execute "sudo chmod -R 777 /var/www/cmpayroll/release"
+			#execute "sudo chmod -R 777 /var/www/cmpayroll/release"
 			execute "sudo service nginx restart"	
 		end
 	end
