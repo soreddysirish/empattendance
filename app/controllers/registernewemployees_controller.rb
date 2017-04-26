@@ -17,7 +17,6 @@ def create
   if @registeremp.save
     redirect_to action: :index
   else
-    binding.pry
     render 'new'
   end
 end
@@ -33,7 +32,6 @@ def update
   @registeremp =  Employee.find(params[:id])
   if  @registeremp.update(employee_params)
     sign_in(current_employee, :bypass => true)
-    binding.pry
     flash[:success] ="account updated successfully"
      redirect_to action: :index
   else

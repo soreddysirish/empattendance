@@ -13,7 +13,6 @@ class LeavesController < ApplicationController
 
   def create
      if params.present?
-      binding.pry
      	if  params[:leave][:leave_type] =="Casual leave"
      		color ="#9900CC"
         leaves_count = params[:leave][:num_of_days].to_i+1
@@ -27,8 +26,7 @@ class LeavesController < ApplicationController
         remain = params[:leave][:leaveBalance].to_i - leaves_count
         current_employee.update(available_leaves: remain)
         end
-       # @leave = 
-       binding.pry 
+     
         current_employee.leaves.create(
             month: Time.now.month,
             start: params[:leave][:start]+"T23:59:00",

@@ -37,7 +37,6 @@
 			</div>
 		<% end %>
 		</div>
-
 	</div>
 </div>
 <script>
@@ -45,7 +44,6 @@ $(document).ready(function(){
 	$.validate()
 })
 	$(function() {
-		debugger;
 		$('.DtChkIn').datepicker({
 			format: 'yyyy-mm-dd',
 			changeMonth: true,
@@ -56,13 +54,6 @@ $(document).ready(function(){
 				this.daysOfWeekDisabled=[0,6]
 			}
 		}).on('changeDate',function(event){
-			//checkIn =$('.DtChkIn').val()
-			//newDate  =new Date(checkIn)
-			//newDate.setDate(newDate.getDate() + 1);
-			//$('.DtChkOut').datepicker("update",newDate)
-			//$('.DtChkOut').datepicker("options",'defaultDate',new Date(newDate))
-			//$('.DtChkOut')[0].focus()
-			debugger;
 		});
 
 		$('.DtChkOut').datepicker({
@@ -118,23 +109,31 @@ $(document).ready(function(){
 		if((leaveTypeselected =="Casual leave" || leaveTypeselected =="sick leave") && available_leaves >0 && numDays <=available_leaves){
 			$('.errorMsgLeave').hide()
 			return true
-		}else{
-			$('.errorMsgLeave').show()
-			$('.leave_type').val('')
 		}
 	}
 	$('.leave_type').on('change',function(){
 		var leaveType = $('.leave_type').val()
 		$('.errorMsgLeaveSelect').hide()
+		$('.errorMsgLeave').hide()
 		if(leaveType == "Official out" || leaveType =="Loss of pay"){
 			$('.availableLeavesSlideUP').slideUp(1000)
+			$('.errorMsgLeaveSelect').hide()
+			$('.errorMsgLeave').hide()
 		}else if((leaveType == "Casual leave" || leaveType =="sick leave")){
 			$('.availableLeaves').val(available_leaves)
 			$('.availableLeavesSlideUP').slideDown(1000)
+
+			if(available_leaves<=0){
+				//$('.errorMsgLeaveSelect').show()
+				$('.errorMsgLeave').show()
+			$('.leave_type').val('')
+			}else{
+				//$('.errorMsgLeaveSelect').hide()
+				$('.errorMsgLeave').show()
+			}
 		}
 		if($('.availableLeaves').val()<0 && $('.leave_type').val()){
 		$('.availableLeaves').val("No leaves for you pls change leave type")	
-		//$('.availableLeavesSlideUP').slideUp(1000)
 	}
 	$('.btnClr').on('click',function(){
      $('select').val('')

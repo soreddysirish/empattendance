@@ -14,7 +14,6 @@ class SalariesController < ApplicationController
   end
 
   def create
-    binding.pry
    create_or_update_employee
     
   end
@@ -29,7 +28,6 @@ class SalariesController < ApplicationController
 
   def update
     create_or_update_employee
-    binding.pry
   end
 
   private
