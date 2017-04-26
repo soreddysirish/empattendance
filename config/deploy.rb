@@ -27,11 +27,10 @@ namespace :deploy do
 	desc 'Restart application'
 	task :restart do
 		on roles(:app), in: :sequence, wait: 5 do
-			execute "sudo chown -R  /var/www/cmpayroll"
+			#execute "sudo chown -R  /var/www/cmpayroll/"
 			execute "sudo service nginx restart"	
 		end
 	end
-end
 
 
 after :finishing, 'deploy:restart'
