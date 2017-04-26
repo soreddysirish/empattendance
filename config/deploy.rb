@@ -24,19 +24,15 @@ set :linked_dirs, %w(pids log)
 set :linked_files, %w(config/database.yml)
 
 namespace :deploy do
-    desc 'Restart application'
-    task :restart do
-        on roles(:app), in: :sequence, wait: 5 do
-            within release_path  do
-                # execute 'rm -rf tmp'
-                # execute 'mkdir tmp'
-                execute 'chmod -R 777 #{current_path}'
-                execute 'ln -s #{shared_path}/config'
-                execute 'sudo service nginx restart'
-                execute 'whenever --update-crontab'
-            end
-        end
-    end
+	desc 'Restart application'
+	task :restart do
+		on roles(:app), in: :sequence, wait: 5 do
+			execute "sudo chown -R  /var/www/cmpayroll"
+			execute "sudo service nginx restart"	
+		end
+	end
+end
+
 
 after :finishing, 'deploy:restart'
 after :finishing, 'deploy:cleanup'
