@@ -30,7 +30,8 @@ every '5 1 1 * *' do
 	runner 'Employee.update_available_leaves'
 end
 
-every :day, :at => '11:55:pm' do
-#every 2.minutes do 
+#every :day, :at => '11:55:pm' do
+#every 2.minutes do
+every '55 23 * * *' do 
 	runner 'Employee.auto_checkout'
 end
