@@ -68,8 +68,13 @@ def view_payslip_report
      end
    end
  else
+  if current_employee.role == "admin" || current_employee.role == "superadmin"
   redirect_to  registernewemployees_index_path
   flash[:warning] = "your payslip is not generated"
+else
+  redirect_to '/'
+  flash[:warning] = "your payslip is not generated"
+end
 end
 end
     

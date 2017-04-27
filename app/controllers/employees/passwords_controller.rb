@@ -1,25 +1,25 @@
 class Employees::PasswordsController < Devise::PasswordsController
   # GET /resource/password/new
    def new
-    binding.pry
+ 
      super
    end
 
   # POST /resource/password
   def create
-    binding.pry
+   
     super
   end
 
   # GET /resource/password/edit?reset_password_token=abcdef
   def edit
-      binding.pry
+   
     super
   end
 
   #PUT /resource/password
   def update
-      binding.pry
+      
     super
   end
 
