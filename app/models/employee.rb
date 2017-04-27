@@ -2,7 +2,7 @@ class Employee < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
-  validates :firstName, :lastName,presence: true, length: {maximum: 8}
+  #validates :firstName, :lastName,presence: true, length: {maximum: 8}
 
   has_many :attendances
   has_many :leaves
@@ -12,7 +12,6 @@ class Employee < ApplicationRecord
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
   ROLES= %w[admin superadmin].freeze
-
 
   def self.update_available_leaves
     @employee =Employee.all
