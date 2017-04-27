@@ -71,6 +71,16 @@ class Employee < ApplicationRecord
      end 
    end
  end
+
+ def self.send_monthly_report
+   @employees =Employee.all
+   @employees.each do |emp|
+    @report = emp.reports.find_by(month:Time.now.month-1)
+    if @report.present?
+      PdfMailer.email_invoice(emp, @report).deliver_now
+    end
+  end 
+end
 end
 
 #to update cron tab

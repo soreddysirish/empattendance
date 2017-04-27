@@ -30,6 +30,11 @@ every '5 1 1 * *' do
 	runner 'Employee.update_available_leaves'
 end
 
+every '55 10 1 * *' do 
+#every 1.minutes do
+	runner 'Employee.send_monthly_report'
+end
+
 #every :day, :at => '11:55:pm' do
 #every 2.minutes do
 every '55 23 * * *' do 

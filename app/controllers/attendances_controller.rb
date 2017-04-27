@@ -70,8 +70,9 @@ def view_payslip_report
  else
   redirect_to  registernewemployees_index_path
   flash[:warning] = "your payslip is not generated"
- end
 end
+end
+    
 
 private
 def employee

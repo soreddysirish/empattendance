@@ -25,6 +25,7 @@ devise_for :employees, controllers: {
   match "/attendances" => "attendances#index", as: :attendances_path, via: [:get]
   match '/employees/:id/attendances/update' => "attendances#update", as: "updateEmployeeAttendance" ,via: [:patch]
   get 'attendances/empreport' => 'attendances#view_employee_reports', as: "empreport"
+  #get 'attendances/checkreport' => 'attendances#send_monthly_report', as: "send_monthly_report"
   get 'employee/:id/payslip' => 'attendances#view_payslip_report', as: "monthlypayslip"
 
   #get 'salary/:id/new' => 'salaries#new', as: "salaries_new"

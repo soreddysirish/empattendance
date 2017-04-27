@@ -7,7 +7,7 @@
 				<td class="info"></td>
 				<td class="info">
 					<%= select("get", "month", @months.collect {|p| [ALL_MONTHS[p], p]}, { :include_blank => true }, {class: "form-control montsDropDown"})	%>
-<p>
+					<p>
 					<%=link_to "Download Pdf",  monthlypayslip_path(format: :pdf),:id=>"download_pdf" %>
 						</p>
 					</td>
