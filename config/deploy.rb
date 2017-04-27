@@ -28,15 +28,20 @@ namespace :deploy do
 	desc 'Restart application'
 	task :restart do
 		on roles(:app), in: :sequence, wait: 5 do
+			within current_path do
+				execute :bundle, :exec, "whenever --update-crontab #{fetch(:application)}"
+			end
 			#execute "sudo chmod -R 777 /var/www/cmpayroll/release"
-
+			#whenever --update-crontab
+			puts '#{current_path}'
+			puts '#{fetch(:application)}'
 			execute "sudo service nginx restart"	
 		end
 	end
 
-
-after :finishing, 'deploy:restart'
-after :finishing, 'deploy:cleanup'
+	after :finishing, 'deploy:update_cron'
+	after :finishing, 'deploy:restart'
+	after :finishing, 'deploy:cleanup'
 end
 
 # # config valid only for current version of Capistrano
