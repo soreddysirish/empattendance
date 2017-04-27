@@ -32,17 +32,20 @@ namespace :deploy do
 			execute "sudo service nginx restart"	
 		end
 	end
-	 task :update_cron do
-    on roles(:app) do
-      within current_path do
-        execute :bundle, :exec, "whenever --update-crontab #{fetch(:application)}"
-      end
-    end
-  end
+	task :update_cron do
+		on roles(:app) do
+			within current_path do
+				execute "rm -rf tmp"
+				execute "mkdir tmp"
+				execute "chmod -R 777 #{current_path}/tmp"
+				execute :bundle, :exec, "whenever --update-crontab #{fetch(:application)}"
+			end
+		end
+	end
 
-after :finishing, 'deploy:update_cron'
-after :finishing, 'deploy:restart'
-after :finishing, 'deploy:cleanup'
+	after :finishing, 'deploy:update_cron'
+	after :finishing, 'deploy:restart'
+	after :finishing, 'deploy:cleanup'
 end
 
 # # config valid only for current version of Capistrano
