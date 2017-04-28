@@ -27,6 +27,7 @@ gem 'listen', '~> 3.0.5'
 gem 'whenever', :require => false
 gem 'underscore-rails'
 gem 'jquery-validation-rails'
+gem 'angularjs-rails'
 
 group :development do
   gem 'capistrano', '~> 3.6'

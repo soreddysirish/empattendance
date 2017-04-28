@@ -1,0 +1,1 @@
+angular.module('employeeAttendance',['validation','validation.rule'])
