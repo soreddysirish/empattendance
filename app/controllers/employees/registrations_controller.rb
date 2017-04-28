@@ -55,7 +55,6 @@ class Employees::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
   def after_update_path_for(resource)
-       binding.pry
         flash[:notice] = "Account succesfully updated"
         redirect_to "/"
     end
